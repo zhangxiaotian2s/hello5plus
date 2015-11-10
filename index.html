@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<meta name="misapplication-tap-highlight" content="no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<title>Hello H5+</title>
+		<script type="text/javascript" src="js/update.js"></script>
+		<script type="text/javascript" charset="utf-8">
+		</script>
+		<link rel="stylesheet" href="css/mui.css" type="text/css" charset="utf-8" />
+		<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+		<style>
+			.mui-off-canvas-left-mybk{ background: #f7d540; width: 40%;}
+			.aside-user-img{ width: 3.6rem; height: 3.6rem; overflow: hidden; border-radius: 1.8rem; margin: auto; }
+			.aside-user-img img{ width: 100%;}
+			.aside-no-login p{ font-size: 1rem; text-align: center;color: #FFFFFF;}
+			.aside-no-login p a{color: #FFFFFF;}
+			.aside-no-login{ border-bottom: #F3F3F3 solid 1px;}
+		</style>
+	</head>
+	
+
+	<body>
+
+		<!-- 侧滑导航根容器 -->
+		<div class="mui-off-canvas-wrap mui-draggable">
+			<!-- 主页面容器 -->
+			<div class="mui-inner-wrap">
+				<!-- 菜单容器 -->
+				<aside class="mui-off-canvas-left mui-off-canvas-left-mybk">
+					<div class="mui-scroll-wrapper">
+						<div class="mui-scroll">
+							<div class="blank-10"></div>
+							<div class="aside-no-login">
+								  <div class="aside-user-img">
+								  	 <img src="img/barcode.png">
+								  </div>
+								  <div class="blank-5"></div>
+								<p>
+									<a href="#">登陆</a>&nbsp; |&nbsp;
+									<a href="#">注册</a>
+								</p>
+							</div>
+						</div>
+					</div>
+				</aside>
+				<!-- 主页面标题 -->
+				<header class="mui-bar mui-bar-nav">
+					<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left"></a>
+					<h1 class="mui-title">随心笔记本</h1>
+				</header>
+				<!-- 主页面内容容器 -->
+				<div class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						主界面具体展示内容1
+						...
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/common.js"></script>
+		<script type="text/javascript" src="js/mui.js"></script>
+		<script type="text/javascript">
+			mui.init()
+			 mui('.mui-off-canvas-wrap').offCanvas('show');
+		</script>
+	</body>
+
+</html>

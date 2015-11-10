@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="HandheldFriendly" content="true" />
+	<meta name="MobileOptimized" content="320" />
+	<title>获得一张图片的测试案例</title>
+	<!--mui 的框架js-->
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript">
+		function plusReady() {
+			plus.webview.currentWebview().addEventListener("popGesture", function(e) {
+				if (e.type == "start") {
+					closeImg();
+				}
+			}, false)
+		}
+		document.addEventListener("plusReady", plusReady, false)
+
+		function closeImg() {
+				var trnode = document.getElementById("imgShow");
+				trnode && trnode.parentNode.removeChild(trnode);
+			}
+	
+
+		function showImg(path) {
+				var _img = document.createElement("img");
+				var _imgbox = document.getElementById('show-img');
+				_img.src = path;
+				_imgbox.innerHTML = "";
+				_imgbox.appendChild(_img)
+			}
+	      
+		 	//声明一个全局的img
+		 	var localimg=[],
+		 	    imgkey=0
+		 	
+           function saveImage(path){
+           	 imgkey++;
+           	 var _img={
+           	 	key:imgkey,
+           	 	url: path
+           	 }
+           	 plus.storage.setItem('img',path)
+           	 console.log(plus.storage.getItem('img'));
+           }
+           
+        //打开相册选取单张的照片
+		function galleryImg() {
+				plus.gallery.pick(function(path) {
+					showImg(path)
+					saveImage(path)
+				}, function(e) {}, {
+					filter: 'image'
+				})
+			}
+		
+		
+		
+			// 返回后关闭图片显示
+		var _back = window.back;
+		window.back = function() {
+			closeImg();
+			_back();
+		};
+	</script>
+	<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+	<style type="text/css">
+		.aname {
+			font-size: 16px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.ainf {
+			font-size: 12px;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+		}
+		.iplay {
+			display: block;
+			background: no-repeat right center url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABYCAYAAAADWlKCAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAKwwAACsMBNCkkqwAAABZ0RVh0Q3JlYXRpb24gVGltZQAwOS8xMi8xM5w+I3MAAAAcdEVYdFNvZnR3YXJlAEFkb2JlIEZpcmV3b3JrcyBDUzVxteM2AAAD9UlEQVR4nO2b3XETMRRGDwzvoYOkg5hRAVkqiKmAdIA7wHSQVECoALsC1gXciV0BTge4gvCwgnHk9d/+WF8m97ztxrlXs8fS1Urym6enJxwd3uZugPMcFyKGCxHDhYjhQsRwIWK4EDFciBguRAwXIoYLEcOFiOFCxHAhYrgQMVyIGC5EDBcihgsRw4WI4ULEcCFiuBAx3uVuwDGY2XtgCBTAALjc8tEFMAdKYBJC+HOK9nXBm5dwUM7MCmAEXDcMMQVuQwhlV23qC2khZjYAboGrjkLOgFEIYd5RvM6RrSFmdgs80J0MYqyHGFsSuR4S60TJ9vrwCEziZ+YhhGXy/xdU9aWgqjfnW+IsgEKtvkgJiUPUPfUyZsD42DoQ68+Y+p62AG6UhjAZITt6xopq3L9vGf+Gqh6dJX+S6ilKNaRkU8YCGLSVARBjDGLMdS5jbgkkhMQiWyejSGtEG2KsghopKoU++5AV68ZDcrvXYWTH8Pghdz1R6CHpN3MFDPsc02PsYcy1qy0nJ6uQOANKZz+jfcOUmd3H6W1jYo5RcvsqtikbuXtI+kBmBxbwz8DczMZtksdcsz1tOinZhMRxPF2bGh8R4gz4amZLMxu2aEqa8zq2LQs5e0j6EB8bLv6dAz/NrGwyjMWcj3vadjJyCimS60nLeFfAbzO7bfANT3MXLdvSmJxCBsl12VHcL8AyvpkfSpo7bdvJyCkkfQfocv5/Bnw3s/mBs6Y097aFzd7JPcv6T5dv5GtcAr/2TZN7yt0IGSE908k0+RS8FiEvhhd1yKEFUw5YAVBApoe0XQrZwgL4GEIY7pLRU+5G5OwhC57PZgbAsqPYK6rdxUMXC9Npbro8fzJy9pB0qll0FPcOuDhCRl3ubEvwOYWUyXXb5YoZ1X7GqMHSfZq7bNmWxuQUki5XnDdc+n4EPoUQiiabSzFnejKl7TJOY7IJid/iaXJ7fESIFfCNas+9zQNMc05zHnjIPctKx/mrA9egflCJGLd5eDFXukGWdddQYU+95PlDWVE97GXPeS+oivf6saBZCKHoM+8+cvcQ2NyhOwMmfW4SxdgTNs9oZd0tBAEhsRDfJbcvgbIPKTtOnNzlPnECAkPWP8xsTv3ZrJ1v2UfmuKDqGRt5QgjZ9kDWyd5D1iioP1U4P3KzqZYYY5v0om38rpDpIeCHrUFMCPjPEeSE/COetf3SU/i7EEL2GVUdSjXkGfGBfWDzIFsb/q93dRizU2R7yDr+o09R/GfRzsmRrSGvFRcihgsRw4WI4ULEcCFiuBAxXIgYLkQMFyKGCxHDhYjhQsRwIWK4EDFciBguRAwXIoYLEcOFiOFCxHAhYrgQMf4CVuqCm+17t3sAAAAASUVORK5CYII=);
+			background-size: 50px 44px;
+			-ms-touch-action: auto;
+		}
+		#show-img {
+			width: 92%;
+			margin: auto;
+		}
+		#show-img img {
+			display: block;
+			margin: auto;
+			max-width: 100%;
+		}
+	</style>
+	</head>
+
+	<body>
+		<header id="header">
+			<div class="nvbt iback" onclick="back(true);"></div>
+			<div class="nvtt">Gallery</div>
+			<div class="nvbt idoc" onclick="openDoc('Gallery Document','/doc/gallery.html')"></div>
+		</header>
+		<div id="dcontent" class="dcontent">
+			<div id="show-img" class="clearfix">
+
+			</div>
+			<div id="show-img-list">
+				<ul>
+					<li></li>
+				</ul>
+			</div>
+
+			<div class="button" onclick="galleryImg()">从相册中选择图片(单选)</div>
+
+		</div>
+
+	</body>
+	<script type="text/javascript" src="../js/immersed.js"></script>
+
+</html>
